@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>enCurt | MOD_MENU_V3_DRIANIN</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --header-blue: #1e3a8a; 
+            --menu-bg: #000000;
+            --card: rgba(255, 255, 255, 0.05);
+            --tiktok: #fe2c55;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            background-color: var(--header-blue);
+            z-index: 100;
+            box-sizing: border-box;
+        }
+
+        .menu-icon { font-size: 1.5rem; cursor: pointer; margin-right: 15px; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: white; }
+
+        /* MENU LATERAL */
+        #sideMenu {
+            position: fixed;
+            top: 0; left: -100%;
+            width: 80%; max-width: 300px; height: 100%;
+            background: var(--menu-bg);
+            z-index: 200;
+            transition: 0.4s;
+            padding: 20px;
+        }
+        #sideMenu.open { left: 0; }
+        .menu-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        .menu-item { padding: 15px 0; color: white; text-decoration: none; display: block; border-bottom: 1px solid #111; cursor: pointer; text-transform: uppercase; font-size: 0.9rem;}
+
+        /* CONTAINER PRINCIPAL */
+        .main-wrapper {
+            margin-top: 80px;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .container {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem; border-radius: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .king-text { font-size: 0.8rem; color: #60a5fa; margin-bottom: 5px; font-weight: bold; }
+        .step-counter { font-size: 1rem; color: #94a3b8; margin-bottom: 10px; }
+        
+        .timer-circle {
+            width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; font-weight: bold; margin: 1.5rem auto;
+        }
+
+        .btn {
+            background-color: var(--primary); color: white; border: none; padding: 16px;
+            border-radius: 10px; font-weight: 600; cursor: pointer; width: 100%;
+            opacity: 0.5; pointer-events: none; transition: 0.3s;
+            margin-top: 15px;
+        }
+        .btn.active { opacity: 1; pointer-events: auto; }
+        .btn-tiktok { background-color: var(--tiktok); opacity: 1; pointer-events: auto; }
+
+        /* PROGRESS BAR */
+        .progress-bar-bg { width: 100%; height: 10px; background: #1e293b; border-radius: 5px; margin: 15px 0; display: none; overflow: hidden; }
+        .progress-bar-fill { width: 0%; height: 100%; background: #22c55e; transition: 5s linear; }
+
+        /* MODAIS (JANELAS PEQUENAS) */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); z-index: 500;
+            flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-content {
+            background: #1e293b; padding: 25px; border-radius: 15px; text-align: center;
+            max-width: 300px; border: 1px solid var(--primary);
+        }
+
+        .footer-credits { position: fixed; bottom: 10px; right: 20px; font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="logo">enCurt</div>
+    </header>
+
+    <div id="sideMenu">
+        <div class="menu-header">
+            <span>enCurt MENU</span>
+            <span style="cursor:pointer; font-size: 2rem;" onclick="toggleMenu()">×</span>
+        </div>
+        <a href="https://teste.com" target="_blank" class="menu-item">The king cheats V200/V201</a>
+        <div class="menu-item" onclick="openUpdateModal()">Última Atualização</div>
+    </div>
+
+    <div class="main-wrapper">
+        
+        <div class="ad-slot">
+            <img src="https://vivo.com.br/content/dam/vivo-sites/vivo-com-br/para-empresas/imagens/hero/vivo-empresas-gestao-dispositivos-mulher-paleto-2409-mobile-1212x808.webp" style="width:100%; border-radius: 10px;">
+        </div>
+
+        <div id="dynamicContent">
+            <div id="mainStepUI" class="container">
+                <div class="king-text">MOD_MENU_V3_DRIANIN</div>
+                <div class="step-counter" id="stepText">Passo 1 / 6</div>
+                <div class="timer-circle" id="timer">20</div>
+                <button id="nextBtn" class="btn" onclick="handleFlow()">Próximo Passo</button>
+            </div>
+
+            <div id="tiktokUI" class="container" style="display: none;">
+                <h2 style="color: #ef4444; margin-bottom: 10px;">Um passo para terminar!!</h2>
+                <p>Siga no meu TikTok para desbloquear</p>
+                <a href="https://www.tiktok.com/@descocriandk11?_r=1&_t=ZS-940JypBjDUr" target="_blank" class="btn btn-tiktok" onclick="startFinalProgress()">Seguir no TikTok</a>
+                <div class="progress-bar-bg" id="pContainer"><div class="progress-bar-fill" id="pBar"></div></div>
+                <button id="finalLinkBtn" class="btn">Obter Link Final</button>
+            </div>
+        </div>
+
+        <div class="ad-slot">
+            <img src="https://vivo.com.br/content/dam/vivo-sites/vivo-com-br/para-empresas/imagens/hero/vivo-empresas-gestao-dispositivos-mulher-paleto-2409-mobile-1212x808.webp" style="width:100%; border-radius: 10px;">
+        </div>
+    </div>
+
+    <div id="updateModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 style="color: var(--primary); margin-top: 0;">Atualização</h3>
+            <p style="font-size: 0.9rem;">Última atualização a <br><strong>19/02/26 às 14:11</strong></p>
+            <button class="btn active" style="margin-top: 10px; background: #444;" onclick="closeUpdateModal()">Fechar</button>
+        </div>
+    </div>
+
+    <div id="blocker" class="modal-overlay">
+        <h2 style="color:red">BLOQUEADO</h2>
+        <p>Toque na imagem para liberar</p>
+        <a href="https://vivo.com.br" target="_blank" onclick="imageClicked()">
+            <img src="https://vivo.com.br/content/dam/vivo-sites/vivo-com-br/para-empresas/imagens/hero/vivo-empresas-gestao-dispositivos-mulher-paleto-2409-mobile-1212x808.webp" style="width:100%; border-radius: 10px; margin: 20px 0;">
+        </a>
+        <button id="closeBlocker" class="btn active" style="display:none; background:#22c55e" onclick="closeModal()">Continuar</button>
+    </div>
+
+    <div class="footer-credits">Ⓘ By descoKi-ando no tiktok</div>
+
+    <script>
+        let currentStep = 1, timeLeft = 20, timerRunning = true, hasClickedAd = false, timerInterval;
+
+        // Funções do Menu
+        function toggleMenu() { document.getElementById('sideMenu').classList.toggle('open'); }
+        function openUpdateModal() { toggleMenu(); document.getElementById('updateModal').style.display = 'flex'; }
+        function closeUpdateModal() { document.getElementById('updateModal').style.display = 'none'; }
+
+        // Lógica do Temporizador
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (timerRunning && timeLeft > 0) {
+                    timeLeft--;
+                    document.getElementById('timer').textContent = timeLeft;
+                    if (timeLeft === 10 && !hasClickedAd) showBlocker();
+                }
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').innerHTML = "✓";
+                    document.getElementById('nextBtn').classList.add('active');
+                }
+            }, 1000);
+        }
+
+        function showBlocker() { timerRunning = false; document.getElementById('blocker').style.display = 'flex'; }
+        
+        function imageClicked() { 
+            setTimeout(() => { document.getElementById('closeBlocker').style.display = 'block'; }, 2000); 
+        }
+
+        function closeModal() {
+            hasClickedAd = true;
+            document.getElementById('blocker').style.display = 'none';
+            timerRunning = true;
+        }
+
+        // Lógica de Troca de Telas
+        function handleFlow() {
+            if (currentStep < 6) {
+                currentStep++;
+                timeLeft = 20; hasClickedAd = false;
+                document.getElementById('stepText').textContent = `Passo ${currentStep} / 6`;
+                document.getElementById('nextBtn').classList.remove('active');
+                startTimer();
+            } else {
+                // Remove a tela de passos e mostra a do TikTok no MESMO lugar
+                document.getElementById('mainStepUI').style.display = 'none';
+                document.getElementById('tiktokUI').style.display = 'block';
+            }
+        }
+
+        function startFinalProgress() {
+            document.getElementById('pContainer').style.display = 'block';
+            setTimeout(() => { document.getElementById('pBar').style.width = "100%"; }, 100);
+            setTimeout(() => {
+                const fBtn = document.getElementById('finalLinkBtn');
+                fBtn.classList.add('active');
+                fBtn.textContent = "LIBERADO - CLIQUE AQUI";
+                fBtn.onclick = () => window.location.href = "https://www.mediafire.com/file/0bka0sawf0tmyac/MOD_MENU_V3_DRIANIN%2526RH.zip/file?dkey=9xlwez5vdel&r=48";
+            }, 5100);
+        }
+
+        startTimer();
+    </script>
+</body>
+</html>
